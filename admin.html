@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrar Objetos Perdidos</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/script.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Sistema de Objetos Perdidos - Administrador</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="admin.html">Administrar Objetos</a></li>
+                <li><a href="#" onclick="logout()">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Registrar Nuevo Objeto</h2>
+            <form id="registerObjectForm">
+                <label for="size">Tamaño:</label>
+                <input type="text" id="size" name="size" required>
+                <label for="color">Color:</label>
+                <input type="text" id="color" name="color" required>
+                <label for="material">Material:</label>
+                <input type="text" id="material" name="material" required>
+                <label for="brand">Marca:</label>
+                <input type="text" id="brand" name="brand" required>
+                <button type="submit">Registrar</button>
+            </form>
+            <p id="registrationResult"></p>
+        </section>
+        <section>
+            <h2>Objetos Perdidos</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tamaño</th>
+                        <th>Color</th>
+                        <th>Material</th>
+                        <th>Marca</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody id="objectsTableBody">
+                    <!-- Los objetos perdidos se llenarán aquí dinámicamente -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <script src="js/script.js"></script>
+    <script>
+        document.getElementById('registerObjectForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var formData = new FormData(event.target);
+            var size = formData.get('size');
+            var color = formData.get('color');
+            var material = formData.get('material');
+            var brand = formData.get('brand');
+
+            // Aquí llamas a la función para registrar el objeto en la base de datos
+            registerLostObject(size, color, material, brand);
+        });
+
+        function registerLostObject(size, color, material, brand) {
+            // Simulando el registro en la base de datos
+            console.log('Registrando objeto:', size, color, material, brand);
+            document.getElementById('registrationResult').innerText = "Objeto registrado exitosamente";
+            // Aquí también deberías actualizar la tabla de objetos perdidos
+        }
+
+        function loadLostObjects() {
+            // Simulando la carga de objetos perdidos desde la base de datos
+            var objects = [
+                { id: 1, size: 'Grande', color: 'Rojo', material: 'Plástico', brand: 'Nike', status: 'Perdido' },
+                { id: 2, size: 'Pequeño', color: 'Azul', material: 'Metal', brand: 'Adidas', status: 'Entregado' }
+            ];
+            var tableBody = document.getElementById('objectsTableBody');
+            tableBody.innerHTML = '';
+            objects.forEach(function(obj) {
+                var row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${obj.id}</td>
+                    <td>${obj.size}</td>
+                    <td>${obj.color}</td>
+                    <td>${obj.material}</td>
+                    <td>${obj.brand}</td>
+                    <td>${obj.status}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        function logout() {
+            // Lógica de cierre de sesión
+            window.location.href = 'index.html';
+        }
+
+        // Cargar los objetos perdidos al cargar la página
+        document.addEventListener('DOMContentLoaded', loadLostObjects);
+    </script>
+</body>
+</html>

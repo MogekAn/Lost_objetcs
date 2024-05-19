@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Objetos Perdidos</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Incluye Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <!-- Página de Bienvenida -->
+  <div id="welcomePage" class="page">
+    <h1>Bienvenido a Objetos Perdidos</h1>
+    <button onclick="showLoginOptions()">Iniciar Sesión</button>
+    <button onclick="showRegisterOptions()">Registrarse</button>
+  </div>
+
+  <!-- Opciones de Login -->
+  <div id="loginOptions" class="page" style="display: none;">
+    <h2>Elige tu tipo de cuenta</h2>
+    <button onclick="showStudentLogin()">Estudiante</button>
+    <button onclick="showAdminLogin()">Administrador</button>
+    <button onclick="showPage('welcomePage')">Regresar</button>
+  </div>
+
+  <!-- Opciones de Registro -->
+  <div id="registerOptions" class="page" style="display: none;">
+    <h2>Elige tu tipo de cuenta</h2>
+    <button onclick="showStudentRegister()">Estudiante</button>
+    <button onclick="showAdminRegister()">Administrador</button>
+    <button onclick="showPage('welcomePage')">Regresar</button>
+  </div>
+
+  <!-- Login Estudiante -->
+  <div id="studentLogin" class="page" style="display: none;">
+    <h2>Iniciar Sesión Estudiante</h2>
+    <form onsubmit="login(event, 'student')">
+      <input type="email" id="studentUsername" placeholder="Correo" required>
+      <input type="password" id="studentPassword" placeholder="Contraseña" required>
+      <button type="submit">Iniciar Sesión</button>
+    </form>
+    <button onclick="showPage('loginOptions')">Regresar</button>
+  </div>
+
+  <!-- Login Administrador -->
+  <div id="adminLogin" class="page" style="display: none;">
+    <h2>Iniciar Sesión Administrador</h2>
+    <form onsubmit="login(event, 'admin')">
+      <input type="email" id="adminUsername" placeholder="Correo" required>
+      <input type="password" id="adminPassword" placeholder="Contraseña" required>
+      <button type="submit">Iniciar Sesión</button>
+    </form>
+    <button onclick="showPage('loginOptions')">Regresar</button>
+  </div>
+
+  <!-- Registro Estudiante -->
+  <div id="studentRegister" class="page" style="display: none;">
+    <h2>Registro Estudiante</h2>
+    <form onsubmit="register(event, 'student')">
+      <input type="email" id="studentRegUsername" placeholder="Correo" required>
+      <input type="password" id="studentRegPassword" placeholder="Contraseña" required>
+      <button type="submit">Registrarse</button>
+    </form>
+    <button onclick="showPage('registerOptions')">Regresar</button>
+  </div>
+
+  <!-- Registro Administrador -->
+  <div id="adminRegister" class="page" style="display: none;">
+    <h2>Registro Administrador</h2>
+    <form onsubmit="register(event, 'admin')">
+      <input type="email" id="adminRegUsername" placeholder="Correo" required>
+      <input type="password" id="adminRegPassword" placeholder="Contraseña" required>
+      <button type="submit">Registrarse</button>
+    </form>
+    <button onclick="showPage('registerOptions')">Regresar</button>
+  </div>
+
+  <!-- Dashboard Estudiante -->
+  <div id="studentDashboard" class="page" style="display: none;">
+    <h2>Dashboard Estudiante</h2>
+    <button onclick="showSearchForm()">Buscar Objeto Perdido</button>
+    <button onclick="showPage('welcomePage')">Cerrar Sesión</button>
+  </div>
+
+  <!-- Formulario de Búsqueda -->
+  <div id="searchForm" class="page" style="display: none;">
+    <h2>Buscar Objeto Perdido</h2>
+    <form onsubmit="searchLostObject(event)">
+      <input type="text" id="searchObjectName" placeholder="Nombre del Objeto" required>
+      <input type="text" id="searchObjectColor" placeholder="Color" required>
+      <input type="text" id="searchObjectSize" placeholder="Tamaño" required>
+      <button type="submit">Buscar</button>
+    </form>
+    <div id="searchResult"></div>
+    <button onclick="showStudentDashboard()">Regresar</button>
+  </div>
+
+  <!-- Dashboard Administrador -->
+  <div id="adminDashboard" class="page" style="display: none;">
+    <h2>Dashboard Administrador</h2>
+    <button onclick="showRegisterObjectForm()">Registrar Objeto Perdido</button>
+    <button onclick="showViewLostObjects()">Ver Objetos Perdidos</button>
+    <button onclick="showPage('welcomePage')">Cerrar Sesión</button>
+  </div>
+
+  <!-- Formulario de Registro de Objeto -->
+  <div id="registerObjectForm" class="page" style="display: none;">
+    <h2>Registrar Objeto Perdido</h2>
+    <form onsubmit="registerLostObject(event)">
+      <input type="text" id="objectName" placeholder="Nombre del Objeto" required>
+      <input type="text" id="objectColor" placeholder="Color" required>
+      <input type="text" id="objectSize" placeholder="Tamaño" required>
+      <button type="submit">Registrar</button>
+    </form>
+    <button onclick="showAdminDashboard()">Regresar</button>
+  </div>
+
+  <!-- Vista de Objetos Perdidos -->
+  <div id="viewLostObjects" class="page" style="display: none;">
+    <h2>Objetos Perdidos</h2>
+    <div id="lostObjectsList"></div>
+    <button onclick="showAdminDashboard()">Regresar</button>
+  </div>
+</body>
+</html>

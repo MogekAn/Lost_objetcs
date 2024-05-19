@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar Objeto Perdido</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/script.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Sistema de Objetos Perdidos</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="student.html">Buscar Objeto</a></li>
+                <li><a href="#" onclick="logout()">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Buscar Objeto Perdido</h2>
+            <form id="searchForm">
+                <label for="size">Tamaño:</label>
+                <input type="text" id="size" name="size" required>
+                <label for="color">Color:</label>
+                <input type="text" id="color" name="color" required>
+                <label for="material">Material:</label>
+                <input type="text" id="material" name="material" required>
+                <label for="brand">Marca:</label>
+                <input type="text" id="brand" name="brand" required>
+                <button type="submit">Buscar</button>
+            </form>
+            <p id="searchResult"></p>
+        </section>
+    </main>
+    <script src="js/script.js"></script>
+    <script>
+        document.getElementById('searchForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var formData = new FormData(event.target);
+            var size = formData.get('size');
+            var color = formData.get('color');
+            var material = formData.get('material');
+            var brand = formData.get('brand');
+
+            // Aquí llamas a la función para buscar el objeto en la base de datos
+            searchLostObject(size, color, material, brand);
+        });
+
+        function searchLostObject(size, color, material, brand) {
+            // Simulando una búsqueda en la base de datos
+            var found = false; // Cambiar a true si el objeto se encuentra en la base de datos
+
+            if (found) {
+                document.getElementById('searchResult').innerText = "Objeto encontrado, ve a la oficina de objetos perdidos";
+            } else {
+                document.getElementById('searchResult').innerText = "Objeto no encontrado";
+            }
+        }
+
+        function logout() {
+            // Lógica de cierre de sesión
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
